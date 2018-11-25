@@ -19,7 +19,7 @@ BUILDIMG=${BUILDTYPE}-${VERSIONINFO}.img
 echo "Building " $BUILDTYPE "image"
 [ -f scratch/${SYSLINUX}/bios/mbr/mbr.bin ] || { echo " prereqs are not available "; exit 1; }
 [ -x scratch/${SYSLINUX}/bios/extlinux/extlinux ] || { echo " prereqs are not available "; exit 1; }
-[ -f scratch/${SYSLINUX}/efi64/efi/syslinux.efi ] || { echo " prereqs are not available "; exit 1; }
+[ -f scratch/${SYSLINUX}/efi64/efi/syslinux.efi.signed ] || { echo " prereqs are not available "; exit 1; }
 [ -f scratch/${SYSLINUX}/efi64/com32/elflink/ldlinux/ldlinux.e64 ] || { echo " prereqs are not available "; exit 1; }
 [ -f scratch/buildroot/${ROOTDIR}/images/bzImage ] || { echo " prereqs are not available "; exit 1; }
 [ -f scratch/buildroot/${ROOTDIR}/images/rootfs.cpio.xz  ] || { echo " prereqs are not available "; exit 1; }
@@ -76,7 +76,7 @@ if [ ${BUILDTYPE} == "RESCUE32" ] ; then
 	sudo cp ../buildroot/syslinux.cfg image/boot/extlinux/extlinux.conf
 else
 	sudo mkdir -p image/EFI/boot
-	sudo cp ../scratch/${SYSLINUX}/efi64/efi/syslinux.efi image/EFI/boot/bootx64.efi
+	sudo cp ../scratch/${SYSLINUX}/efi64/efi/syslinux.efi.signed image/EFI/boot/bootx64.efi
 	sudo cp ../scratch/${SYSLINUX}/efi64/com32/elflink/ldlinux/ldlinux.e64 image/EFI/boot/
 	sudo cp ../scratch/buildroot/64bit/images/bzImage image/EFI/boot/
 	sudo cp ../scratch/buildroot/64bit/images/rescuefs.cpio.xz image/EFI/boot/rootfs.cpio.xz
